@@ -10,11 +10,22 @@ import java.utils.*;
 import java.util.streams.*;
 
 // the improvement for correctness
+public static Character firstNonRepeatedCharacter(String str) {
+    int[] counter = new int[256]; //max 255 ascii value
+    for(int i =0; i<str.length(); i++){
+        counter[str.charAt(i)]++;
+    }
+    for(char i : str.toCharArray()){
+        if(counter[i] == 1){
+            return i;
+        }
+    }
+    return null;
 
 }
 
 
-
+/*
 public static Character firstNonRepeatedCharacter(String str) {
     HashMap<Character, Integer> nonDup = new HashMap<>();
     Character ans =null;
@@ -40,3 +51,4 @@ public static Character firstNonRepeatedCharacter(String str) {
     }
     return ans;
 }
+*/
