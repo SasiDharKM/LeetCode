@@ -46,50 +46,55 @@ class Solution {
         boolean whitespace = true, number = false;
         int mult = 1, output = 0;
         for(int i=0; i<str.length(); i++){
+          //if it is whitespace i.e. still nothing else has been encountered
             if(str.charAt(i) == ' ' && whitespace){
                 continue;
             }
-            else if(str.charAt(i) != ' '){
+            else if(str.charAt(i) != ' '){//if it is something else(a number or otherwise)
                 whitespace = false;
-                if(str.charAt(i) == '+' && !number){
-                    if(i+1 < str.length()){
-                        if(!(str.charAt(i+1) >47 && str.charAt(i+1) < 58)){
+                if(str.charAt(i) == '+' && !number){ //to account for positive sign
+                    if(i+1 < str.length()){ //to handle plus being at last index
+                        if(!(str.charAt(i+1) >47 && str.charAt(i+1) < 58)){//to check if next index is a number
                         return mult*output;
                         }
                     }
                     continue;
                 }
-                else if(str.charAt(i) == '-' && !number){
-                    if(i+1 < str.length()){
-                        if(!(str.charAt(i+1) >47 && str.charAt(i+1) < 58)){
+                else if(str.charAt(i) == '-' && !number){//to account for negative sign
+                    if(i+1 < str.length()){ //to handle minus being at last index
+                        if(!(str.charAt(i+1) >47 && str.charAt(i+1) < 58)){//to check if next character is a number
                         return mult*output;
                         }
                     }
-                    mult =-1;
+                    mult =-1; //multipier becomes negative
                 }
-                else if(!(str.charAt(i) >47 && str.charAt(i) < 58)){
+                else if(!(str.charAt(i) >47 && str.charAt(i) < 58)){ // if not a number or a sign return
                     return mult*output;
                 }
-                else if(str.charAt(i) >47 && str.charAt(i) < 58){
+                else if(str.charAt(i) >47 && str.charAt(i) < 58){ //if it is a number
                     number = true;
                     if(mult == 1){
+                      //positive has 2^32 -1 =  2,147,483,647
                         if((output < Integer.MAX_VALUE/10) ||((output == Integer.MAX_VALUE/10)&&(Character.getNumericValue(str.charAt(i)) < 8))){
                         output = output*10 + Character.getNumericValue(str.charAt(i));
                         }
-                        else{
+                        else{//if integer overflow
                             return Integer.MAX_VALUE;
                         }
                     }
                     if (mult == -1){
+                      //negative has 2^32 =  2,147,483,648
                         if((output < Integer.MAX_VALUE/10) ||((output == Integer.MAX_VALUE/10)&&(Character.getNumericValue(str.charAt(i)) < 9))){
                         output = output*10 + Character.getNumericValue(str.charAt(i));
                         }
                         else{
+                          //if integer underflow
                          return Integer.MIN_VALUE;
                         }
                     }
                 }
             }
+            //if other than a number after number starts return
             else if(!(str.charAt(i) >47 && str.charAt(i) < 58) && number){
                 return mult*output;
             }
