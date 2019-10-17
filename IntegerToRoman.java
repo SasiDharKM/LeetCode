@@ -42,6 +42,29 @@ Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
 class Solution {
+  /*
+  public String intToRoman(int num) {
+        // List all the possible roman numberial values
+        int[] romanValue = new int[] {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] romanCharacters = new String[] {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        String solution = "";
+
+        // We are going to determine how many times each roman numerial can be used in a single iteration
+        for(int i = 0; i < romanValue.length; i++){
+            int repeat = num / romanValue[i];
+
+            // The remainder become the new value
+            num = num % romanValue[i];
+
+            // Adding the repeation to the result
+            for(int j = 0; j < repeat; j++){
+                solution += romanCharacters[i];
+            }
+
+        }
+        return solution;
+    }
+  */
     char [] roman = {'I','V','X', 'L','C','D','M'};
     public String intToRoman(int num) {
         int maxDigit = 4;
