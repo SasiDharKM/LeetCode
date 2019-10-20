@@ -42,7 +42,8 @@ Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
 class Solution {
-  /*
+
+  //The faster solution
   public String intToRoman(int num) {
         // List all the possible roman numberial values
         int[] romanValue = new int[] {1000,900,500,400,100,90,50,40,10,9,5,4,1};
@@ -64,7 +65,7 @@ class Solution {
         }
         return solution;
     }
-  */
+  /*
     char [] roman = {'I','V','X', 'L','C','D','M'};
     public String intToRoman(int num) {
         int maxDigit = 4;
@@ -105,4 +106,4 @@ class Solution {
         }
         return res.toString();
     }
-}
+}*/
