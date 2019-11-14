@@ -37,6 +37,23 @@ How would you optimize the kthSmallest routine?
  *     TreeNode(int x) { val = x; }
  * }
  */
+ public int kthSmallest(TreeNode root, int k) {
+         LinkedList<TreeNode> inorder = new LinkedList<>();
+
+         while(true){
+             while(root != null){
+                 inorder.add(root);
+                 root = root.left;
+             }
+             root = inorder.removeLast();
+             if(--k == 0){
+                 return root.val;
+             }
+             root = root.right;
+         }
+     }
+ }
+ 
 class Solution {
 
     public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> arr){
