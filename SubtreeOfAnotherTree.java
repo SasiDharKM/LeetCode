@@ -42,10 +42,10 @@ Return false.
  *     TreeNode(int x) { val = x; }
  * }
  */
- 
+
 class Solution {
     public boolean isSubtree(TreeNode s, TreeNode t) {
-        return traverse(s,t);
+        return s!= null && ( equals(s,t) || isSubtree(s.left, t) || isSubtree(s.right, t));
     }
 
     public boolean equals (TreeNode a, TreeNode b){
@@ -56,9 +56,5 @@ class Solution {
             return false;
         }
         return a.val == b.val && equals(a.left, b.left) && equals(a.right,b.right);
-    }
-
-    public boolean traverse(TreeNode s, TreeNode t){
-        return s!= null && ( equals(s,t) || traverse(s.left, t) || traverse(s.right, t));
     }
 }
