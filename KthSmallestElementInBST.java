@@ -1,4 +1,4 @@
-/**
+/*
 Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
 
 Note:
@@ -37,24 +37,26 @@ How would you optimize the kthSmallest routine?
  *     TreeNode(int x) { val = x; }
  * }
  */
- public int kthSmallest(TreeNode root, int k) {
-         LinkedList<TreeNode> inorder = new LinkedList<>();
 
-         while(true){
-             while(root != null){
-                 inorder.add(root);
-                 root = root.left;
-             }
-             root = inorder.removeLast();
-             if(--k == 0){
-                 return root.val;
-             }
-             root = root.right;
-         }
-     }
- }
- 
 class Solution {
+
+
+  public int kthSmallest(TreeNode root, int k) {
+          LinkedList<TreeNode> inorder = new LinkedList<>();
+
+          while(true){
+              while(root != null){
+                  inorder.add(root);
+                  root = root.left;
+              }
+              root = inorder.removeLast();
+              if(--k == 0){
+                  return root.val;
+              }
+              root = root.right;
+          }
+      }
+
 
     public ArrayList<Integer> inorder(TreeNode root, ArrayList<Integer> arr){
         if(root == null){
@@ -68,7 +70,7 @@ class Solution {
         return arr;
     }
 
-    public int kthSmallest(TreeNode root, int k) {
+    public int kthSallest(TreeNode root, int k) {
         ArrayList<Integer> nums = inorder(root, new ArrayList<Integer>());
         return nums.get(k-1);
     }
