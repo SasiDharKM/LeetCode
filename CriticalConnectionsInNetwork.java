@@ -22,60 +22,56 @@ There are no repeated connections.
 */
 
 class Solution {
-    int[] dfn;
-    int[] low;
-    int step = 1;
-    List<List<Integer>> graph = new ArrayList<>();
-    List<List<Integer>> res = new ArrayList<>();
 
-    public void tarjan(int u, int parent){
-        low[u] = step;
-        dfn[u] = step;
-        step++;
-        for(Integer v:graph.get(u)){
-            if(dfn[v] == 0){
-                tarjan(u,v);
-                low[u] = Math.min(low[u], low[v]);
-                if(low[v] > dfn[u]){
-                    ArrayList<Integer> temp = new ArrayList<>();
-                    if(u<v){
-                        temp.add(u);
-                        temp.add(v);
-                    }
-                    else {
-                        temp.add(v);
-                        temp.add(u);
-                    }
-                    res.add(temp);
-                }
-            }
-            else if(v != parent){
-                low[u] = Math.min(low[u], dfn[v]);
-            }
-        }
+  private Map<Integer, List<Integer>> graph;
+  private int[] dist;
+  private int[] low;
+  private int[] parent;
+  private boolean[] isVisited;
+  private int time;
+  private List<List<Integer>> result;
+
+  public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+    graph = new HashMap<>();
+    dist = new int[n];
+    parent = new int[n];
+    low = new int[n];
+    time = 0;
+    isVisited = new boolean[n];
+    result = new LinkedList<>();
+    for (int i = 0; i < n; i++) {
+      graph.put(i, new LinkedList<>());
+      parent[i] = -1;
     }
-
-    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-        dfn = new int[n];
-        low = new int[n];
-
-        for(int i = 0; i < n; i++){
-            graph.add(new ArrayList<>());
-        }
-
-        for (List l: connections){
-            int x = (int) l.get(0);
-            int y = (int) l.get(1);
-            graph.get(x).add(y);
-            graph.get(y).add(x);
-        }
-
-        for(int i=0; i<n; i++){
-            if(dfn[i] == 0){
-                tarjan(i, -1);
-            }
-        }
-
-        return res;
+    for (List<Integer> conn : connections) {
+      int a = conn.get(0);
+      int b = conn.get(1);
+      graph.get(a).add(b);
+      graph.get(b).add(a);
     }
+    dfs(0);
+    return result;
+  }
+
+  private void dfs(int root) {
+    if (isVisited[root]) {
+      return;
+    }
+    isVisited[root] = true;
+    dist[root] = time;
+    low[root] = time;
+    time++;
+    for (int neighbor : graph.get(root)) {
+      if (!isVisited[neighbor]) {
+        parent[neighbor] = root;
+        dfs(neighbor);
+        low[root] = Math.min(low[root], low[neighbor]);
+        if (dist[root] < low[neighbor]) {
+          result.add(Arrays.asList(root, neighbor));
+        }
+      } else if (neighbor != parent[root]) {
+        low[root] = Math.min(low[root], dist[neighbor]);
+      }
+    }
+  }
 }
