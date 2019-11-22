@@ -69,7 +69,8 @@ class Solution {
         if (dist[root] < low[neighbor]) {
           result.add(Arrays.asList(root, neighbor));
         }
-      } else if (neighbor != parent[root]) {
+      }
+      else if (neighbor != parent[root]) {
         low[root] = Math.min(low[root], dist[neighbor]);
       }
     }
